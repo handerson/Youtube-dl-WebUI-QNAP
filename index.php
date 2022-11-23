@@ -130,7 +130,7 @@
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="<?php echo $mainPage; ?>">Download</a></li>
-                    <li><a href="<?php echo $GLOBALS['listPage']; ?>">List of videos</a></li>
+                    <!--li><a href="<?php echo $GLOBALS['listPage']; ?>">List of videos</a></li-->
                 </ul>
             </div>
         </div>
@@ -194,7 +194,6 @@
                     <div class="panel panel-info">
                         <div class="panel-heading"><h3 class="panel-title">Info</h3></div>
                         <div class="panel-body">
-                            <p>Free space : <?php if(file_exists($GLOBALS['folder'])){ echo human_filesize(disk_free_space($GLOBALS['folder']),1)."o";} else {echo "Folder not found";} ?></b></p>
                             <p>Download folder : <?php echo $GLOBALS['folder'] ;?></p>
                         </div>
                     </div>

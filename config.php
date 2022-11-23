@@ -6,10 +6,10 @@
 $mainPage = "index.php";
 
 // -> with "/" <- at the end. Directory where you videos are downloaded
-$GLOBALS['folder'] = "videos/"; 
+$GLOBALS['folder'] = "/share/CACHEDEV1_DATA/Multimedia/Web Videos/"; 
 
 //Empty if dont need it
-$GLOBALS['proxy'] = "localhost:7890"; 
+//$GLOBALS['proxy'] = "localhost:7890"; 
 
 //Rename it only if you change list.php to myvideos.php for example
 $GLOBALS['listPage'] = "list.php";

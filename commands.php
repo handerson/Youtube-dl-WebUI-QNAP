@@ -35,8 +35,9 @@
 
 
     function downloadVideo($url) {
-        $video_id = getVideoID($url);
-        $cmd = getYoutubeDLCMD().' -f \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['folder'].$video_id.'.proc &';
+        //$video_id = getVideoID($url);
+        $cmd = 'youtube-dl ' . escapeshellarg($url) . ' --ffmpeg-location /opt/ffmpeg --add-metadata --no-playlist --write-info-json --format \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --write-thumbnail --merge-output-format mp4 -o ' . escapeshellarg($GLOBALS['folder'].'%(uploader)s [%(uploader_id)s]/%(title)s[%(id)s].%(ext)s') ;
+        //$cmd = getYoutubeDLCMD().' -f \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['folder'].$video_id.'.proc &';
         //$cmd = getYoutubeDLCMD().' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['folder'].$video_id.'.proc &';
         $data = array();    
         exec($cmd, $output, $ret);
@@ -47,7 +48,10 @@
         }
         else{
             $data['error'] = true;
+            $data['ret'] = $ret;
             $data['message'] = "";
+            $data['output'] = $output;
+            $data['cmd'] = $cmd;
             foreach($output as $out) $data['message'] .= $out . '<br>'; 
         }
         return $data;
@@ -60,9 +64,9 @@
         {
             $url = $_GET['url'];
             header('Content-type: application/json');
-            if (isset($_GET['cmd'])) {
-                if ($_GET['cmd']=='dl') echo json_encode(downloadVideo($url));
-            } else echo json_encode(getInfos($url));
+            if (isset($_GET['url'])) {
+                echo json_encode(downloadVideo($url));
+            };
             exit;
         }
         if(isset($_GET['fileToDel'])) {
