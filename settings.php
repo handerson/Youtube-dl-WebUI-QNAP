@@ -14,7 +14,7 @@
         );
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && authorized()) {
+    if (httpMethod('post') && authorized()) {
         if(isset($_POST['folder'])) $settings['folder']=$_POST['folder'];
         if(isset($_POST['format'])) $settings['format']=$_POST['format'];
         if(isset($_POST['filename'])) $settings['filename']=$_POST['filename'];

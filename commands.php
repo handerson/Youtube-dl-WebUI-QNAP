@@ -5,45 +5,70 @@
         return $params['v'];
     }
 
-    function getYoutubeDLCMD() {
-        $proxy_cmd="";
-        if (!empty($GLOBALS['settings']['proxy'])) $proxy_cmd = "--proxy ".$GLOBALS['settings']['proxy'];
-        return 'youtube-dl '.$proxy_cmd.' --ffmpeg-location /opt/ffmpeg ';
-    }
-
-    function getInfos($url) {
-        $cmd = getYoutubeDLCMD().'-s --restrict-filenames --get-title --get-thumbnail --get-duration --get-format ' . escapeshellarg($url) . ' 2>&1';
-        $data = array();
-        exec($cmd, $output, $ret);
-        if($ret == 0) {
-            $data['error'] = false; $i=0;
-            if (strpos($output[$i], 'WARNING') !== false) $i++;
-            $data['title'] = $output[$i];
-            $data['tmb_url'] = $output[$i+1];
-            $data['duration'] = $output[$i+2];
-            $data['format'] = $output[$i+3];
-        }
-        else {
-            $data['error'] = true;
-            foreach($output as $out) {
-                $data['message'] .= $out . '<br>'; 
+    function buildOptions($carry, $item) {
+        if(isset($item["arg"])){
+            if(empty($item["arg"])) {
+                $carry = "$carry --".$item['option']." ";
+            } else{
+                $carry = "$carry --".$item['option']." ".escapeshellarg($item['arg'])." ";
             }
         }
-        return $data;
+        return $carry;
     }
+
+    function getYoutubeDLCMD($url) {
+        $url = escapeshellarg($url);
+        $options = [
+            ["option"=> "verbose", "arg"=> ""],
+            ["option"=> "add-metadata", "arg"=> ""],
+            ["option"=> "write-info-json", "arg"=> ""],
+            ["option"=> "format", "arg"=> $GLOBALS['settings']['format']],
+            ["option"=> "write-thumbnail", "arg"=> ""],
+            ["option"=> "merge-output-format", "arg"=> "mp4"],
+            ["option"=> "output", "arg"=> $GLOBALS['settings']['folder'].$GLOBALS['settings']['filename']],
+            ["option"=> "proxy", "arg"=> NULL],
+            ["option"=> "ffmpeg-location", "arg"=> NULL]
+        ];
+        $options_string = array_reduce($options, "buildOptions", "");
+        $progress_log = escapeshellarg($GLOBALS['settings']['folder']."yt-dl-progress.log");
+        
+        // return "nohup /opt/homebrew/bin/youtube-dl $url $options_string 2>&1";
+        return "nohup /opt/homebrew/bin/youtube-dl $url $options_string > $progress_log &";
+    }
+
+    // function getInfos($url) {
+    //     $cmd = getYoutubeDLCMD($url).'-s --restrict-filenames --get-title --get-thumbnail --get-duration --get-format  2>&1';
+    //     $data = array();
+    //     // exec($cmd, $output, $ret);
+    //     if($ret == 0) {
+    //         $data['error'] = false; $i=0;
+    //         if (strpos($output[$i], 'WARNING') !== false) $i++;
+    //         $data['title'] = $output[$i];
+    //         $data['tmb_url'] = $output[$i+1];
+    //         $data['duration'] = $output[$i+2];
+    //         $data['format'] = $output[$i+3];
+    //     }
+    //     else {
+    //         $data['error'] = true;
+    //         foreach($output as $out) {
+    //             $data['message'] .= $out . '<br>'; 
+    //         }
+    //     }
+    //     return $data;
+    // }
 
 
     function downloadVideo($url) {
-        //$video_id = getVideoID($url);
-        $cmd = 'youtube-dl ' . escapeshellarg($url) . ' --ffmpeg-location /opt/ffmpeg --add-metadata --no-playlist --write-info-json --format \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --write-thumbnail --merge-output-format mp4 -o ' . escapeshellarg($GLOBALS['settings']['folder'].'%(uploader)s [%(uploader_id)s]/%(title)s[%(id)s].%(ext)s') ;
-        //$cmd = getYoutubeDLCMD().' -f \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['settings']['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['settings']['folder'].$video_id.'.proc &';
-        //$cmd = getYoutubeDLCMD().' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['settings']['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['settings']['folder'].$video_id.'.proc &';
+        $cmd = getYoutubeDLCMD($url);
         $data = array();    
         exec($cmd, $output, $ret);
-        //$output[] = $cmd; $output[] = $video_id; $ret = 1;
+        // $output = system($cmd, $ret);
+        // $ret = 1;
         if($ret == 0)
         {
             $data['error'] = false;
+            $data['dowload'] = true;
+            $data['cmd'] = $cmd;
         }
         else{
             $data['error'] = true;
@@ -51,24 +76,24 @@
             $data['message'] = "";
             $data['output'] = $output;
             $data['cmd'] = $cmd;
-            foreach($output as $out) $data['message'] .= $out . '<br>'; 
+            // foreach($output as $out) $data['message'] .= $out . '<br>'; 
         }
+        var_error_log($output);
+        var_error_log($data);
         return $data;
     }
 
 
     function commandsHandler() {
         if(isset($_GET['logout']) && $_GET['logout'] == 1) endSession();
-        if(isset($_GET['url']) && !empty($_GET['url']) && (authorized()) )
+        if(httpMethod('post') && isset($_POST['url']) && !empty($_POST['url']) && (authorized()) )
         {
-            $url = $_GET['url'];
-            header('Content-type: application/json');
-            if (isset($_GET['url'])) {
-                echo json_encode(downloadVideo($url));
+            $url = $_POST['url'];
+            if (isset($_POST['url'])) {
+                downloadVideo($url);
             };
-            exit;
         }
-        if(isset($_POST['file']) && strcasecmp($_POST['_method'], "delete") == 0 && authorized()) {
+        if(isset($_POST['file']) && httpMethod('delete') && authorized()) {
             $fileToDel = $_POST['file'];
             $data = array();    
             if(file_exists($GLOBALS['settings']['folder'].$fileToDel))

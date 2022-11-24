@@ -4,4 +4,5 @@ composer.phar
 *.part
 *.txt
 *.proc
+*.log
 config.json
