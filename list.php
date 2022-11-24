@@ -43,18 +43,18 @@ if(authorized())
             <tbody>
                 <tr>
 <?php
-            foreach(glob($folder."*") as $file)
+            foreach(glob($settings['folder']."*") as $file)
             {
                 $additional_data=processProcFile($file);
                 if (isset($additional_data['deleted'])) continue;
                 //print_r($additional_data);
-                $filename = str_replace($folder, "", $file); // Need to fix accent problem with something like this : utf8_encode
+                $filename = str_replace($settings['folder'], "", $file); // Need to fix accent problem with something like this : utf8_encode
                 $dl_info = "";
                 if (isset($additional_data['dl_string'])) $dl_info = " (".$additional_data['dl_string'].")";
                 echo "<tr>"; //New line
-                echo "<td height=\"30px\"><a href=\"$folder$filename\">$filename</a>$dl_info</td>"; //1st col
-                echo "<td>".human_filesize(filesize($folder.$filename))."</td>"; //2nd col
-                echo "<td><a href=\"".$listPage."?fileToDel=$filename\" class=\"text-danger\">Delete</a></td>"; //3rd col
+                echo "<td height=\"30px\"><a href=\"$file\">$filename</a>$dl_info</td>"; //1st col
+                echo "<td>".human_filesize(filesize($file))."</td>"; //2nd col
+                echo "<td><a href=\"list.php?fileToDel=$filename\" class=\"text-danger\">Delete</a></td>"; //3rd col
                 echo "</tr>"; //End line
             }
        
