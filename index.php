@@ -17,8 +17,7 @@
     <head>
         <meta charset="utf-8">
         <title>Youtube-dl WebUI</title>
-        <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-        <link rel="stylesheet" href="css/bootswatch.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/jquery-3.6.0.min.js"></script>
         <style>
         .result-box {
@@ -125,12 +124,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo $mainPage; ?>">Youtube-dl WebUI</a>
+                <a class="navbar-brand" href="/index.php">Youtube-dl WebUI</a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="<?php echo $mainPage; ?>">Download</a></li>
-                    <!--li><a href="<?php echo $GLOBALS['listPage']; ?>">List of videos</a></li-->
+                    <li class="active"><a href="/index.php">Download</a></li>
+                    <li><a href="/list.php">List of videos</a></li>
+                    <li><a href="/settings.php">Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -138,7 +138,7 @@
             <h1>Download</h1>
 <?php
 
-    if($GLOBALS['security']==0 || (isset($_SESSION['logged']) && $_SESSION['logged'] == 1)) { 
+    if(authorized()) { 
 ?>
             <form id="submit_form" class="form-horizontal" action="#">
                 <fieldset>
@@ -188,13 +188,13 @@
                 </div>
             </div>
 
-            <?php destFolderExists($GLOBALS['folder']);?>
+            <?php destFolderExists($settings['folder']);?>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-info">
                         <div class="panel-heading"><h3 class="panel-title">Info</h3></div>
                         <div class="panel-body">
-                            <p>Download folder : <?php echo $GLOBALS['folder'] ;?></p>
+                            <p>Download folder : <?php echo $settings['folder'] ;?></p>
                         </div>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
 <?php
     }
     else{ ?>
-        <form class="form-horizontal" action="<?php echo $mainPage; ?>" method="POST" >
+        <form class="form-horizontal" action="/index.php" method="POST" >
             <fieldset>
                 <legend>You need to login first</legend>
                 <div class="form-group">
@@ -229,7 +229,7 @@
         </form>
 <?php
         }
-    if(isset($_SESSION['logged']) && $_SESSION['logged'] == 1) echo '<p><a href="index.php?logout=1">Logout</a></p>';
+    if(authorized()) echo '<p><a href="index.php?logout=1">Logout</a></p>';
 ?>
         </div><!-- End container -->
         <footer>

@@ -7,10 +7,9 @@
 
     function getYoutubeDLCMD() {
         $proxy_cmd="";
-        if (!empty($GLOBALS['proxy'])) $proxy_cmd = "--proxy ".$GLOBALS['proxy'];
+        if (!empty($GLOBALS['settings']['proxy'])) $proxy_cmd = "--proxy ".$GLOBALS['settings']['proxy'];
         return 'youtube-dl '.$proxy_cmd.' --ffmpeg-location /opt/ffmpeg ';
     }
-
 
     function getInfos($url) {
         $cmd = getYoutubeDLCMD().'-s --restrict-filenames --get-title --get-thumbnail --get-duration --get-format ' . escapeshellarg($url) . ' 2>&1';
@@ -36,9 +35,9 @@
 
     function downloadVideo($url) {
         //$video_id = getVideoID($url);
-        $cmd = 'youtube-dl ' . escapeshellarg($url) . ' --ffmpeg-location /opt/ffmpeg --add-metadata --no-playlist --write-info-json --format \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --write-thumbnail --merge-output-format mp4 -o ' . escapeshellarg($GLOBALS['folder'].'%(uploader)s [%(uploader_id)s]/%(title)s[%(id)s].%(ext)s') ;
-        //$cmd = getYoutubeDLCMD().' -f \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['folder'].$video_id.'.proc &';
-        //$cmd = getYoutubeDLCMD().' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['folder'].$video_id.'.proc &';
+        $cmd = 'youtube-dl ' . escapeshellarg($url) . ' --ffmpeg-location /opt/ffmpeg --add-metadata --no-playlist --write-info-json --format \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --write-thumbnail --merge-output-format mp4 -o ' . escapeshellarg($GLOBALS['settings']['folder'].'%(uploader)s [%(uploader_id)s]/%(title)s[%(id)s].%(ext)s') ;
+        //$cmd = getYoutubeDLCMD().' -f \'bestvideo[height<=480]+bestaudio/best[height<=480]\' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['settings']['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['settings']['folder'].$video_id.'.proc &';
+        //$cmd = getYoutubeDLCMD().' --merge-output-format mp4  -o ' . escapeshellarg($GLOBALS['settings']['folder'].'%(title)s-%(uploader)s.%(ext)s') . ' ' . escapeshellarg($url) . ' > '.$GLOBALS['settings']['folder'].$video_id.'.proc &';
         $data = array();    
         exec($cmd, $output, $ret);
         //$output[] = $cmd; $output[] = $video_id; $ret = 1;
@@ -60,7 +59,7 @@
 
     function commandsHandler() {
         if(isset($_GET['logout']) && $_GET['logout'] == 1) endSession();
-        if(isset($_GET['url']) && !empty($_GET['url']) && (!$GLOBALS['security'] || ($_SESSION['logged'] == 1)) )
+        if(isset($_GET['url']) && !empty($_GET['url']) && (!$GLOBALS['settings']['password'] || ($_SESSION['logged'] == 1)) )
         {
             $url = $_GET['url'];
             header('Content-type: application/json');
@@ -72,9 +71,9 @@
         if(isset($_GET['fileToDel'])) {
             $fileToDel = $_GET['fileToDel'];
             $data = array();    
-            if(file_exists($GLOBALS['folder'].$fileToDel))
+            if(file_exists($GLOBALS['settings']['folder'].$fileToDel))
             {
-                if(unlink($GLOBALS['folder'].$fileToDel))
+                if(unlink($GLOBALS['settings']['folder'].$fileToDel))
                 {
                     $data['error'] = false;
                     $data['message'] = "File deleted successfully.";
@@ -106,7 +105,7 @@
                 echo '</div>';
                 echo '<p><a href="'.$listPage.'">Go back</a></p>';*/
             }
-            $GLOBALS['popup']=$data;
+            $GLOBALS['settings']['popup']=$data;
             //header('Content-type: application/json');
             //echo json_encode($data);
             //exit;

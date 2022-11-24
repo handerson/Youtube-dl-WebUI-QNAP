@@ -11,8 +11,7 @@
     <head>
         <meta charset="utf-8">
         <title>Youtube-dl WebUI - List of videos</title>
-        <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-        <link rel="stylesheet" href="css/bootswatch.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
     <body >
         <div class="navbar navbar-default">
@@ -22,11 +21,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo $mainPage; ?>">Youtube-dl WebUI</a>
+                <a class="navbar-brand" href="/index.php">Youtube-dl WebUI</a>
             </div>
             <div class="navbar-collapse  collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo $mainPage; ?>">Download</a></li>
+                    <li><a href="/index.php">Download</a></li>
                     <li class="active"><a href="<?php echo $listPage; ?>">List of videos</a></li>
                 </ul>
             </div>
@@ -39,15 +38,15 @@ if($security==0 || (isset($_SESSION['logged']) && $_SESSION['logged'] == 1))
 ?>
     <h2>List of available videos :</h2>
 
-<?php if (isset($GLOBALS['popup']) && $GLOBALS['popup']['error']==false): ?>
+<?php if (isset($settings['popup']) && $settings['popup']['error']==false): ?>
     <div id="dialog_success" class="alert alert-success">
-        <strong><?php echo $GLOBALS['popup']['message']; ?></strong>
+        <strong><?php echo $settings['popup']['message']; ?></strong>
     </div>
 <?php endif; ?>
 
-<?php if (isset($GLOBALS['popup']) && $GLOBALS['popup']['error']==true): ?>    
+<?php if (isset($settings['popup']) && $settings['popup']['error']==true): ?>    
     <div id="dialog_err" class="alert alert-dismissable alert-danger">
-        <strong><?php echo $GLOBALS['popup']['message']; ?></strong>
+        <strong><?php echo $settings['popup']['message']; ?></strong>
     </div>
 <?php endif; ?>
 

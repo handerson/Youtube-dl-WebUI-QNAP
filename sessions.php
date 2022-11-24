@@ -8,26 +8,24 @@
 	function startSession($pass)
 	{
 		$pass = htmlentities($pass);
-		global $security;
-		if($security == 1)
+		if((isset($GLOBALS['settings']['security']) && $GLOBALS['settings']['security'] == "yes"))
 		{
-			if(passwordMatch($pass)) $_SESSION['logged'] = 1;
+			if(password_verify($pass, $GLOBALS['settings']['password'])) $_SESSION['logged'] = 1;
 			else $_SESSION['logged'] = 0;
 		} else {
 			$_SESSION['logged'] = 1;
 		}
 	}
 
-	function passwordMatch($pass)
-	{
-		global $secretPassword;
-		if(md5($pass) == $secretPassword) return 1;
-		else return 0;
-	}
-
 	function endSession()
 	{
-		global $security;
-		if($security == 1) session_destroy();
+		if(!session_id()) session_start();
+		session_destroy();
+	}
+
+	function authorized(){
+		return (
+			(isset($GLOBALS['settings']['security']) && $GLOBALS['settings']['security'] != "yes") || (isset($_SESSION['logged']) && $_SESSION['logged'] == 1)
+		);
 	}
 ?>
