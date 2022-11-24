@@ -5,6 +5,8 @@
     require_once("utilities.php");
     require_once("commands.php");
 
+    $current_page = "Settings";
+
     function hasPassword(){
         return (
             (isset($_POST['password']) && !empty($_POST['password'])) ||
@@ -44,29 +46,9 @@
     
 ?>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Youtube-dl WebUI - Settings</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-    </head>
+    <?php include("includes/head.php") ?>
     <body >
-        <div class="navbar navbar-default">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/index.php">Youtube-dl WebUI</a>
-            </div>
-            <div class="navbar-collapse  collapse navbar-responsive-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/index.php">Download</a></li>
-                    <li><a href="/list.php">List of videos</a></li>
-                    <li class="active"><a href="/settings.php">Settings</a></li>
-                </ul>
-            </div>
-        </div>
+        <?php include("includes/navigation.php") ?>
         <div class="container">
         <div class="row">
             <?php
