@@ -59,7 +59,7 @@
 
     function commandsHandler() {
         if(isset($_GET['logout']) && $_GET['logout'] == 1) endSession();
-        if(isset($_GET['url']) && !empty($_GET['url']) && (!$GLOBALS['settings']['password'] || ($_SESSION['logged'] == 1)) )
+        if(isset($_GET['url']) && !empty($_GET['url']) && (authorized()) )
         {
             $url = $_GET['url'];
             header('Content-type: application/json');
@@ -68,55 +68,33 @@
             };
             exit;
         }
-        if(isset($_GET['fileToDel'])) {
-            $fileToDel = $_GET['fileToDel'];
+        if(isset($_POST['file']) && strcasecmp($_POST['_method'], "delete") == 0 && authorized()) {
+            $fileToDel = $_POST['file'];
             $data = array();    
             if(file_exists($GLOBALS['settings']['folder'].$fileToDel))
             {
-                if(unlink($GLOBALS['settings']['folder'].$fileToDel))
-                {
-                    $data['error'] = false;
-                    $data['message'] = "File deleted successfully.";
-                    /*
-                    echo '<div class="panel panel-success">';
-                    echo '<div class="panel-heading"><h3 class="panel-title">Fichier à supprimer : '.$fileToDel.'</h3></div>';
-                    echo '<div class="panel-body">Le fichier '.$fileToDel.' a été supprimé !</div>';
-                    echo '</div>';
-                    echo '<p><a href="'.$listPage.'">Go back</a></p>';
-                */
+                $type = mime_content_type($GLOBALS['settings']['folder'].$fileToDel);
+                if(preg_match("/video/i", $type)){
+                    if(unlink($GLOBALS['settings']['folder'].$fileToDel))
+                    {
+                        $data['error'] = false;
+                        $data['message'] = "File deleted successfully.";
+                    }
+                    else{
+                        $data['error'] = true;
+                        $data['message'] = "Error in deleting file.";
+                    }
                 }
                 else{
                     $data['error'] = true;
-                    $data['message'] = "Error in deleting file.";
-                /*
-                    echo '<div class="panel panel-danger">';
-                    echo '<div class="panel-heading"><h3 class="panel-title">Fichier à supprimer : '.$fileToDel.'</h3></div>';
-                    echo '<div class="panel-body">Le fichier '.$fileToDel.' n\'a pas pu être supprimé !</div>';
-                    echo '</div>';
-                    echo '<p><a href="'.$listPage.'">Go back</a></p>';*/
+                    $data['message'] = "Only video files may be deleted.";
                 }
+                
             } else {
                 $data['error'] = true;
-                $data['message'] = "The file do not exists.";
-                /*
-                echo '<div class="panel panel-danger">';
-                echo '<div class="panel-heading"><h3 class="panel-title">Fichier à supprimer : '.$fileToDel.'</h3></div>';
-                echo '<div class="panel-body">Le fichier '.$fileToDel.' ne peut pas être supprimé car il est introuvable !</div>';
-                echo '</div>';
-                echo '<p><a href="'.$listPage.'">Go back</a></p>';*/
+                $data['message'] = "The file does not exists.";
             }
-            $GLOBALS['settings']['popup']=$data;
-            //header('Content-type: application/json');
-            //echo json_encode($data);
-            //exit;
         }
-        /*
-        elseif(!file_exists($folder))
-        {
-                echo '<div class="alert alert-danger">
-                        <strong>Error : </strong> Destination folder doesn\'t exist or is not found here.
-                    </div>';
-        }*/
     }
 
     commandsHandler();

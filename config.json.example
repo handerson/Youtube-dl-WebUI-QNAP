@@ -1,7 +1,7 @@
 {
     "folder": "\/share\/CACHEDEV1_DATA\/Multimedia\/Web Videos\/",
     "format": "bestvideo[height<=480]+bestaudio\/best[height<=480]",
-    "filename": "%(uploader)s [%(uploader_id)s]\/%(title)s[%(id)s].%(ext)s",
+    "filename": "%(title)s[%(id)s].%(ext)s",
     "ffmpeg": "ffmpeg",
     "security": "",
     "password": "",
