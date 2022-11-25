@@ -17,6 +17,7 @@
 <html>
     <?php include("includes/head.php") ?>
     <body >
+        <script type="text/javascript">var downloadStarted = <?php echo json_encode(downloadStarted()); ?>;</script>
         <?php include("includes/navigation.php") ?>
         <div class="container">
             <h1>Download</h1>
@@ -44,7 +45,7 @@
                                 <p>Download folder : <?php echo $settings['folder'] ;?></p>
                             </div>
                         </div>
-                        <div id="dialog_loading" class="panel panel-info hidden">
+                        <div id="dialog_loading" class="panel panel-info <?php  if(!downloadStarted()) echo 'hidden'; ?>">
                             <div class="panel-heading"><h3 class="panel-title">Progress</h3></div>
                             <div class="panel-body">
                                 <div class="card">
@@ -92,7 +93,7 @@
                         </div>
                     </div>
                 </form>
-            <?php  } if(authorized()) echo '<p><a href="index.php?logout=1">Logout</a></p>'; ?>
+            <?php  } if(secured() && loggedIn()) echo '<p><a href="index.php?logout=1">Logout</a></p>'; ?>
         </div><!-- End container -->
         <footer>
             <div class="well text-center">
@@ -101,36 +102,41 @@
         </footer>
     </body>
 <script>
-
-    $(document).ready(function() {
-        setInterval(function () {
-                $.ajax({
-                    url: 'get-progress.php',
-                    success: function (data) {
-                        if(data['type'] === 'waiting'){
-                            $('#dialog_loading').addClass('hidden');
-                            $('#dialog_err').addClass('hidden');
-                        }else if(data['type'] === "converting"){
-                            if(!$('#dialog_loading').hasClass('hidden')){ 
-                                $("#dialog_success").removeClass('hidden');
-                                $('#dialog_loading').addClass('hidden');
-                                $('#dialog_success_msg').html(data['message']);
-                            }
-                            $('#dialog_err').addClass('hidden');
-                        } else {
-                            $('#progress-string').html(`${data["progress"]}%`);
-                            $('#dialog_loading').removeClass('hidden');
-                            $('#dialog_err').addClass('hidden');
-                            $('#progressbar').attr('aria-valuenow', data).css('width', `${data["progress"]}%`);
-                        };
-                    },
-                    error: function(data){
-                        $('#dialog_err').removeClass('hidden');
+    function showError(message){
+        $('#dialog_err').removeClass('hidden');
+        $('#dialog_loading').addClass('hidden');
+        $('#dialog_err_msg').html(message);
+    };
+    function getProgress(downloadStarted) {
+        $.ajax({
+            url: 'get-progress.php',
+            success: function (data) {
+                if(data['type'] === 'waiting' && !downloadStarted) {
+                    $('#dialog_loading').addClass('hidden');
+                    $('#dialog_err').addClass('hidden');
+                } else if(data['type'] === "converting") {
+                    if(!$('#dialog_loading').hasClass('hidden')){ 
+                        $("#dialog_success").removeClass('hidden');
                         $('#dialog_loading').addClass('hidden');
-                        $('#dialog_err_msg').html(data['message']);
+                        $('#dialog_success_msg').html(data['message']);
                     }
-                });
-            }, 2000);
+                    $('#dialog_err').addClass('hidden');
+                } else if(data['type'] === "download") {
+                    $('#progress-string').html(`${data["progress"]}%`);
+                    $('#dialog_loading').removeClass('hidden');
+                    $('#dialog_err').addClass('hidden');
+                    $('#progressbar').attr('aria-valuenow', data).css('width', `${data["progress"]}%`);
+                } else if(downloadStarted) {
+                    showError("Download could not be started");
+                };
+            },
+            error: function(data){
+                showError(data['message'])
+            }
+        });
+    };
+    $(document).ready(function() {
+        setInterval(getProgress, 3000, downloadStarted);
     });
 </script>
 </html>

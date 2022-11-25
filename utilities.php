@@ -38,4 +38,8 @@ function var_error_log( $object=null ){
     ob_end_clean();                // end capture
     error_log( $contents );        // log contents of the result of var_dump( $object )
 }
+
+function downloadStarted(){
+    return isset($GLOBALS['download_attempted']) && $GLOBALS['download_attempted'] === true;
+}
 ?>

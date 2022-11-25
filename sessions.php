@@ -23,9 +23,15 @@
 		session_destroy();
 	}
 
+	function secured(){
+		return (isset($GLOBALS['settings']['security']) && $GLOBALS['settings']['security'] === "yes");
+	}
+
+	function loggedIn(){
+		return (isset($_SESSION['logged']) && $_SESSION['logged'] == 1);
+	}
+
 	function authorized(){
-		return (
-			(isset($GLOBALS['settings']['security']) && $GLOBALS['settings']['security'] != "yes") || (isset($_SESSION['logged']) && $_SESSION['logged'] == 1)
-		);
+		return (!secured() || loggedIn());
 	}
 ?>

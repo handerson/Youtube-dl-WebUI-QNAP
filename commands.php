@@ -20,7 +20,6 @@
         $url = escapeshellarg($url);
         $options = [
             ["option"=> "add-metadata", "arg"=> ""],
-            ["option"=> "verbose", "arg"=> ""],
             ["option"=> "write-info-json", "arg"=> ""],
             ["option"=> "format", "arg"=> $GLOBALS['settings']['format']],
             ["option"=> "write-thumbnail", "arg"=> ""],
@@ -38,11 +37,12 @@
     function downloadVideo($url) {
         $cmd = getYoutubeDLCMD($url);
         $data = array();    
+        $GLOBALS['download_attempted'] = true;
         exec($cmd, $output, $ret);
         if($ret == 0)
         {
             $data['error'] = false;
-            $data['dowload'] = true;
+            $data['download'] = true;
             $data['cmd'] = $cmd;
         }
         else{
@@ -53,8 +53,7 @@
             $data['cmd'] = $cmd;
             foreach($output as $out) $data['message'] .= $out . '<br>'; 
         }
-        var_error_log($output);
-        var_error_log($data);
+  
         return $data;
     }
 
@@ -98,5 +97,4 @@
     }
 
     commandsHandler();
-
 ?>

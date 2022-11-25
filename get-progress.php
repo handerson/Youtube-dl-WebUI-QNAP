@@ -53,7 +53,6 @@ if(empty($last_line)){
         http_response_code(400);
         $response['error'] = true;
         $response['type'] = 'failed';
-        var_error_log($response);
     }
 }
 
