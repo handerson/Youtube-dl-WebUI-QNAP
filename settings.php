@@ -19,6 +19,9 @@
         if(isset($_POST['format'])) $settings['format']=$_POST['format'];
         if(isset($_POST['filename'])) $settings['filename']=$_POST['filename'];
         if(isset($_POST['ffmpeg'])) $settings['ffmpeg']=$_POST['ffmpeg'];
+        if(isset($_POST['downloadLogFolder'])) $settings['downloadLogFolder']=$_POST['downloadLogFolder'];
+        if(isset($_POST['mergeOutputFormat'])) $settings['mergeOutputFormat']=$_POST['mergeOutputFormat'];
+        if(isset($_POST['proxy'])) $settings['proxy']=$_POST['proxy'];
         if(isset($_POST['security']) && $_POST['security'] == 'yes'){
             $settings['security'] = 'yes';
         }else{
@@ -81,9 +84,21 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="downloadLogFolder" class="col-sm-2 control-label">Download Log Folder</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="downloadLogFolder" placeholder="<?php echo $settings["folder"]; ?>" name="downloadLogFolder" value="<?php echo $settings["downloadLogFolder"]; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="proxy" class="col-sm-2 control-label">Proxy</label>
                             <div class="col-sm-10">
                             <input type="text" class="form-control" id="proxy" placeholder="" name="proxy" value="<?php echo $settings["proxy"]; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proxy" class="col-sm-2 control-label">Merge Output Format</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mergeOutputFormat" placeholder="mp4" name="mergeOutputFormat" value="<?php echo $settings["mergeOutputFormat"]; ?>">
                             </div>
                         </div>
                         <div class="form-group">

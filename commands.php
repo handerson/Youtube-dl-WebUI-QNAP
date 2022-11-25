@@ -19,51 +19,26 @@
     function getYoutubeDLCMD($url) {
         $url = escapeshellarg($url);
         $options = [
-            ["option"=> "verbose", "arg"=> ""],
             ["option"=> "add-metadata", "arg"=> ""],
+            ["option"=> "verbose", "arg"=> ""],
             ["option"=> "write-info-json", "arg"=> ""],
             ["option"=> "format", "arg"=> $GLOBALS['settings']['format']],
             ["option"=> "write-thumbnail", "arg"=> ""],
-            ["option"=> "merge-output-format", "arg"=> "mp4"],
+            ["option"=> "merge-output-format", "arg"=> (empty($GLOBALS['settings']['mergeOutputFormat']))  ? NULL : $GLOBALS['settings']['mergeOutputFormat']],
             ["option"=> "output", "arg"=> $GLOBALS['settings']['folder'].$GLOBALS['settings']['filename']],
-            ["option"=> "proxy", "arg"=> NULL],
-            ["option"=> "ffmpeg-location", "arg"=> NULL]
+            ["option"=> "proxy", "arg"=> (empty($GLOBALS['settings']['proxy']))  ? NULL : $GLOBALS['settings']['proxy']],
+            ["option"=> "ffmpeg-location", "arg"=> (empty($GLOBALS['settings']['ffmpeg']))  ? NULL : $GLOBALS['settings']['ffmpeg']]
         ];
         $options_string = array_reduce($options, "buildOptions", "");
-        $progress_log = escapeshellarg($GLOBALS['settings']['folder']."yt-dl-progress.log");
-        
-        // return "nohup /opt/homebrew/bin/youtube-dl $url $options_string 2>&1";
-        return "nohup /opt/homebrew/bin/youtube-dl $url $options_string > $progress_log &";
+        $progress_log_folder =  (empty($GLOBALS['settings']['downloadLogFolder']))  ? $GLOBALS['settings']['folder'] : $GLOBALS['settings']['downloadLogFolder'];
+        $progress_log = escapeshellarg($progress_log_folder."yt-dl-progress.log");
+        return "nohup youtube-dl $url $options_string > $progress_log &";
     }
-
-    // function getInfos($url) {
-    //     $cmd = getYoutubeDLCMD($url).'-s --restrict-filenames --get-title --get-thumbnail --get-duration --get-format  2>&1';
-    //     $data = array();
-    //     // exec($cmd, $output, $ret);
-    //     if($ret == 0) {
-    //         $data['error'] = false; $i=0;
-    //         if (strpos($output[$i], 'WARNING') !== false) $i++;
-    //         $data['title'] = $output[$i];
-    //         $data['tmb_url'] = $output[$i+1];
-    //         $data['duration'] = $output[$i+2];
-    //         $data['format'] = $output[$i+3];
-    //     }
-    //     else {
-    //         $data['error'] = true;
-    //         foreach($output as $out) {
-    //             $data['message'] .= $out . '<br>'; 
-    //         }
-    //     }
-    //     return $data;
-    // }
-
 
     function downloadVideo($url) {
         $cmd = getYoutubeDLCMD($url);
         $data = array();    
         exec($cmd, $output, $ret);
-        // $output = system($cmd, $ret);
-        // $ret = 1;
         if($ret == 0)
         {
             $data['error'] = false;
@@ -76,8 +51,9 @@
             $data['message'] = "";
             $data['output'] = $output;
             $data['cmd'] = $cmd;
-            // foreach($output as $out) $data['message'] .= $out . '<br>'; 
+            foreach($output as $out) $data['message'] .= $out . '<br>'; 
         }
+        print_r($cmd);
         var_error_log($output);
         var_error_log($data);
         return $data;

@@ -31,7 +31,7 @@ if(empty($last_line)){
     $response['type'] = 'waiting';
 } else {
     preg_match('/(\S+)\s+((\d+\.?\d?)%\D+(\d+\.?\d?\w+)|.+)/i', $last_line, $last_line_array);
-    var_error_log($last_line_array);
+
     if(is_array($last_line_array)) {
         switch($last_line_array[1]){
             case "[download]":
@@ -53,9 +53,8 @@ if(empty($last_line)){
         http_response_code(400);
         $response['error'] = true;
         $response['type'] = 'failed';
+        var_error_log($response);
     }
 }
-
-var_error_log($response);
 
 echo json_encode($response);

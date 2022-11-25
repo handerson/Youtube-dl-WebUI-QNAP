@@ -79,17 +79,18 @@
                     </div>
                 </div>
             <?php } else { ?>
-                <form class="form-horizontal" action="/index.php" method="POST" >
-                    <fieldset>
-                        <legend>You need to login first</legend>
-                        <div class="form-group">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4">
-                                <input class="form-control" id="passwd" name="passwd" placeholder="Password" type="password">
-                            </div>
-                            <div class="col-lg-4"></div>
+                <form class="form-horizontal" role="form" action="/index.php" method="POST">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                        <input type="password" class="form-control" id="passwd" name="passwd" placeholder="Password">
                         </div>
-                    </fieldset>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                        </div>
+                    </div>
                 </form>
             <?php  } if(authorized()) echo '<p><a href="index.php?logout=1">Logout</a></p>'; ?>
         </div><!-- End container -->
@@ -113,9 +114,9 @@
                             if(!$('#dialog_loading').hasClass('hidden')){ 
                                 $("#dialog_success").removeClass('hidden');
                                 $('#dialog_loading').addClass('hidden');
-                                $('#dialog_err').addClass('hidden');
                                 $('#dialog_success_msg').html(data['message']);
                             }
+                            $('#dialog_err').addClass('hidden');
                         } else {
                             $('#progress-string').html(`${data["progress"]}%`);
                             $('#dialog_loading').removeClass('hidden');
@@ -129,7 +130,7 @@
                         $('#dialog_err_msg').html(data['message']);
                     }
                 });
-            }, 2000);
+            }, 3000);
     });
 </script>
 </html>

@@ -2,9 +2,9 @@
     "folder": "\/share\/CACHEDEV1_DATA\/Multimedia\/Web Videos\/",
     "format": "bestvideo[height<=480]+bestaudio\/best[height<=480]",
     "filename": "%(title)s[%(id)s].%(ext)s",
-    "downloadLogLocation":"",
-    "ffmpeg": "ffmpeg",
-    "youtubeDl":"",
+    "downloadLogFolder":"",
+    "mergeOutputFormat":"mp4",
+    "ffmpeg": "",
     "security": "",
     "password": "",
     "proxy": ""
