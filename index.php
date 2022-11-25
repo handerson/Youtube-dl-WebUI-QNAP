@@ -130,7 +130,7 @@
                         $('#dialog_err_msg').html(data['message']);
                     }
                 });
-            }, 3000);
+            }, 2000);
     });
 </script>
 </html>

@@ -1,10 +1,10 @@
 {
-    "folder": "\/share\/CACHEDEV1_DATA\/Multimedia\/Web Videos\/",
+    "folder": "/share/Multimedia/Web Videos/",
     "format": "bestvideo[height<=480]+bestaudio\/best[height<=480]",
     "filename": "%(title)s[%(id)s].%(ext)s",
-    "downloadLogFolder":"",
+    "downloadLogFolder":"/share/Web/logs/",
     "mergeOutputFormat":"mp4",
-    "ffmpeg": "",
+    "ffmpeg": "/opt/ffmpeg",
     "security": "",
     "password": "",
     "proxy": ""

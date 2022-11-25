@@ -30,9 +30,9 @@
             ["option"=> "ffmpeg-location", "arg"=> (empty($GLOBALS['settings']['ffmpeg']))  ? NULL : $GLOBALS['settings']['ffmpeg']]
         ];
         $options_string = array_reduce($options, "buildOptions", "");
-        $progress_log_folder =  (empty($GLOBALS['settings']['downloadLogFolder']))  ? $GLOBALS['settings']['folder'] : $GLOBALS['settings']['downloadLogFolder'];
+        $progress_log_folder =  (empty($GLOBALS['settings']['downloadLogFolder'])) ? $GLOBALS['settings']['folder'] : $GLOBALS['settings']['downloadLogFolder'];
         $progress_log = escapeshellarg($progress_log_folder."yt-dl-progress.log");
-        return "nohup youtube-dl $url $options_string > $progress_log &";
+        return "youtube-dl $url $options_string > $progress_log &";
     }
 
     function downloadVideo($url) {
@@ -53,7 +53,6 @@
             $data['cmd'] = $cmd;
             foreach($output as $out) $data['message'] .= $out . '<br>'; 
         }
-        print_r($cmd);
         var_error_log($output);
         var_error_log($data);
         return $data;
