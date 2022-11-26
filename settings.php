@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label for="folder" class="col-sm-2 control-label">Download Folder</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="folder" placeholder="/share/CACHEDEV1_DATA/Multimedia/Web Videos/" name="folder" value="<?php echo $settings["folder"]; ?>">
+                            <input type="text" class="form-control" id="folder" placeholder="/share/Multimedia/Web Videos/" name="folder" value="<?php echo $settings["folder"]; ?>">
                             </div>
                         </div>
                         <div class="form-group">

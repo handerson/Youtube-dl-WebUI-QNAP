@@ -136,7 +136,7 @@
         });
     };
     $(document).ready(function() {
-        setInterval(getProgress, 3000, downloadStarted);
+        setInterval(getProgress, 4000, downloadStarted);
     });
 </script>
 </html>
