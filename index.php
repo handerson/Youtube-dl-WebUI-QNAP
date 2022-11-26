@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <div id="dialog_err" class="alert alert-dismissable alert-danger hidden">
-                            <strong>An error occurred!</strong>Error message:<br>
+                            <strong>An error occurred! </strong>Error message:<br>
                             <span id="dialog_err_msg"></span>
                         </div>
                         <div id="dialog_success" class="alert alert-success hidden">
