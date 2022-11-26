@@ -22,18 +22,16 @@
         <div class="container">
             <h1>Download</h1>
             <?php if(authorized()) {  ?>
-                <form id="submit_form" class="form-horizontal" method="post" action="/index.php">
-                    <fieldset>
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input class="form-control" id="url" name="url" placeholder="Link" type="text">
-                            </div>
-                            <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary">Download</button>
-                            </div>
-                        </div>
-                        
-                    </fieldset>
+                <form id="submit_form" class="form" method="post" action="index.php">
+                    <div class="row">
+                    <div class="form-group col-sm-9">
+                        <label class="sr-only" for="url">URL to download</label>
+                        <input class="form-control input-lg" id="url" name="url" placeholder="URL" type="text">
+                    </div>
+                        <div class="form-group col-sm-3">
+                        <button type="submit" class="btn btn-lg">Download</button>
+                    </div>
+                    </div>
                 </form>
                 <br>
                 <?php destFolderExists($settings['folder']);?>
@@ -74,13 +72,13 @@
                                 <p><b>With which sites does it works ?</b></p>
                                 <p><a href="http://rg3.github.io/youtube-dl/supportedsites.html">Here</a> is the list of the supported sites</p>
                                 <p><b>How can I download the video on my computer ?</b></p>
-                                <p>Go to "List of videos", choose one, right click on the link and do "Save target as ..." </p>
+                                <p>Go to <a href="list.php">List of videos</a> and click on the title of the video you want to save" </p>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php } else { ?>
-                <form class="form-horizontal" role="form" action="/index.php" method="POST">
+                <form class="form-horizontal" role="form" action="index.php" method="POST">
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-10">

@@ -57,7 +57,7 @@
             <?php
             if(authorized()) { 
             ?>
-                <form id="submit_form" class="form-horizontal" action="/settings.php" method="post">
+                <form id="submit_form" class="form-horizontal" action="settings.php" method="post">
                     <fieldset>
                         <div class="form-group">
                             <label for="folder" class="col-sm-2 control-label">Download Folder</label>

@@ -1,7 +1,7 @@
-# Youtube-dl WebUI - QNAP Edition
+# phpYoutubeDLWebUI
 
 ## Description
-This is a small web interface for youtube-dl command, specifically made for QNAP NAP.
+This is a small web interface for youtube-dl command. Designed to be used on a QNAP NAS, but should work on anywhere [youtube-dl](https://github.com/rg3/youtube-dl), [FFmpeg](https://www.qnapclub.eu/en/qpkg/379), and [PHP](https://www.php.net/) can run.
 
 ## Features
 - Options can be set in the web ui:
@@ -16,8 +16,9 @@ This is a small web interface for youtube-dl command, specifically made for QNAP
 - Videos can be downloaded from the server
 
 ## Requirements
-- QNAP NAS with web server enabled and Python and PHP
-- [Youtube-dl](https://github.com/rg3/youtube-dl)
+- HTTP server that supports PHP
+    - such as a QNAP NAS with web server enabled and Python and PHP
+- [youtube-dl](https://github.com/rg3/youtube-dl)
 - [FFmpeg](https://www.qnapclub.eu/en/qpkg/379)
 
 ## How to install?
