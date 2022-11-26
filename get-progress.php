@@ -3,7 +3,7 @@
     require_once("sessions.php");
     require_once("utilities.php");
 
-$log_file_path = $GLOBALS['settings']['downloadLogFolder']. 'yt-dl-progress.log';
+$log_file_path = $GLOBALS['settings']['downloadLogFolder'].DIRECTORY_SEPARATOR.'yt-dl-progress.log';
 
 function getLastLine(string $filepath): string {    
     $line = '';

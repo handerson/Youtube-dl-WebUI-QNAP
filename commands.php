@@ -28,13 +28,13 @@
             ["option"=> "format", "arg"=> setOptionValue($GLOBALS['settings']['format'])],
             ["option"=> "write-thumbnail", "arg"=> setOptionValue($GLOBALS['settings']['writeThumbnail'], false)],
             ["option"=> "merge-output-format", "arg"=> setOptionValue($GLOBALS['settings']['mergeOutputFormat'])],
-            ["option"=> "output", "arg"=> $GLOBALS['settings']['folder'].$GLOBALS['settings']['filename']],
+            ["option"=> "output", "arg"=> $GLOBALS['settings']['folder'].DIRECTORY_SEPARATOR.$GLOBALS['settings']['filename']],
             ["option"=> "proxy", "arg"=> setOptionValue($GLOBALS['settings']['proxy'])],
             ["option"=> "ffmpeg-location", "arg"=> setOptionValue($GLOBALS['settings']['ffmpeg'])]
         ];
         $options_string = array_reduce($options, "buildOptions", "");
         $progress_log_folder =  (empty($GLOBALS['settings']['downloadLogFolder'])) ? $GLOBALS['settings']['folder'] : $GLOBALS['settings']['downloadLogFolder'];
-        $progress_log = escapeshellarg($progress_log_folder."yt-dl-progress.log");
+        $progress_log = escapeshellarg($progress_log_folder.DIRECTORY_SEPARATOR."yt-dl-progress.log");
         return "youtube-dl $url $options_string > $progress_log &";
     }
 
