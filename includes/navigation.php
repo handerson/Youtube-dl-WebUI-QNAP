@@ -10,3 +10,9 @@
         </ul>
     </div>
 </div>
+
+<?php if (isset($flash)): ?>
+    <div class="alert <?php echo $flash["error"] ? "alert-danger" : "alert-success"; ?> alert-dismissable">
+        <strong><?php echo $flash['message']; ?></strong>
+    </div>
+<?php endif; ?>

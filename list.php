@@ -20,18 +20,6 @@
     ?>
     <h2>List of available videos :</h2>
 
-    <?php if (isset($settings['popup']) && $settings['popup']['error']==false): ?>
-        <div id="dialog_success" class="alert alert-success">
-            <strong><?php echo $settings['popup']['message']; ?></strong>
-        </div>
-    <?php endif; ?>
-
-    <?php if (isset($settings['popup']) && $settings['popup']['error']==true): ?>    
-        <div id="dialog_err" class="alert alert-dismissable alert-danger">
-            <strong><?php echo $settings['popup']['message']; ?></strong>
-        </div>
-    <?php endif; ?>
-
         <table class="table table-striped table-hover ">
             <thead>
                 <tr>

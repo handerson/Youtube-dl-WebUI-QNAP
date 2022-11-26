@@ -5,7 +5,7 @@
         <h4>About</h4>
         <hr class="hr-muted">
         <p>
-          phpYoutubeDLWebUI is a small web interface for youtube-dl command. Designed to be used on a QNAP NAS, but 
+          phpYoutubeDLWebUI is a small web interface for youtube-dl. Designed to be used on a QNAP NAS, but 
           should work anywhere <a href="https://github.com/rg3/youtube-dl" rel="nofollow">Youtube-dl</a>, <a href="https://ffmpeg.org/" rel="nofollow">FFmpeg</a>, 
           and <a href="https://www.php.net/" rel="nofollow">PHP</a> can run.
         </p>
@@ -27,7 +27,7 @@
         <hr class="hr-muted">
             <p><a href="https://github.com/martinloren/Youtube-dl-WebUI-QNAP" target="_blank">Youtube-dl-WebUI</a> created by <a href="https://github.com/martinloren/" target="_blank">https://github.com/martinloren</a>. </br>
               phpYoutubeDLWebUI fork by <a href="https://github.com/handerson/phpYoutubeDLWebUI" target="_blank">https://github.com/handerson</a>. </p>
-        </div>
+      </div>
     </div>
   </div>
 </footer>

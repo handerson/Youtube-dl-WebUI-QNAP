@@ -22,6 +22,21 @@
         if(isset($_POST['downloadLogFolder'])) $settings['downloadLogFolder']=validatePath($_POST['downloadLogFolder']);
         if(isset($_POST['mergeOutputFormat'])) $settings['mergeOutputFormat']=$_POST['mergeOutputFormat'];
         if(isset($_POST['proxy'])) $settings['proxy']=$_POST['proxy'];
+        if(isset($_POST['addMetadata']) && $_POST['addMetadata'] == 'yes'){
+            $settings['addMetadata'] = 'yes';
+        }else{
+            $settings['addMetadata'] = '';
+        }
+        if(isset($_POST['writeInfoJson']) && $_POST['writeInfoJson'] == 'yes'){
+            $settings['writeInfoJson'] = 'yes';
+        }else{
+            $settings['writeInfoJson'] = '';
+        }
+        if(isset($_POST['writeThumbnail']) && $_POST['writeThumbnail'] == 'yes'){
+            $settings['writeThumbnail'] = 'yes';
+        }else{
+            $settings['writeThumbnail'] = '';
+        }
         if(isset($_POST['security']) && $_POST['security'] == 'yes'){
             $settings['security'] = 'yes';
         }else{
@@ -34,6 +49,8 @@
             } else {
                 $settings['security'] = "";
                 $errors["password"] = "Password must be set if Require Password is checked.";
+                $flash['error'] = true;
+                $flash['message'] = $errors["password"];
             }
         }  else {
             $settings['password'] = "";
@@ -43,7 +60,13 @@
         if(empty($errors)){
             $encodedjson = json_encode($settings, JSON_PRETTY_PRINT);
 
-            file_put_contents($GLOBALS['config_file'], $encodedjson);
+            if(file_put_contents($GLOBALS['config_file'], $encodedjson)){
+                $flash['error'] = false;
+                $flash['message'] = "Settings saved";
+            }else {
+                $flash['error'] = true;
+                $flash['message'] = "Unable to save config.json";
+            }
         }
     }
     
@@ -101,6 +124,38 @@
                             <input type="text" class="form-control" id="mergeOutputFormat" placeholder="mp4" name="mergeOutputFormat" value="<?php echo $settings["mergeOutputFormat"]; ?>">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" name="addMetadata" value="yes" <?php if ((isset($settings['addMetadata']) && $settings['addMetadata'] == "yes")) echo "checked";?>> Add metadata
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">More Options</label>
+                            <div class="col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" name="writeInfoJson" value="yes" <?php if ((isset($settings['writeInfoJson']) && $settings['writeInfoJson'] == "yes")) echo "checked";?>> Write info JSON
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" name="writeThumbnail" value="yes" <?php if ((isset($settings['writeThumbnail']) && $settings['writeThumbnail'] == "yes")) echo "checked";?>> Write thumbnail
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="hr-primary">
+
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <div class="checkbox">

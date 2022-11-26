@@ -1,7 +1,7 @@
 # phpYoutubeDLWebUI
 
 ## Description
-phpYoutubeDLWebUI is a small web interface for youtube-dl command. Designed to be used on a QNAP NAS, but should work anywhere [youtube-dl](https://github.com/rg3/youtube-dl), [FFmpeg](https://ffmpeg.org/), and [PHP](https://www.php.net/) can run.
+phpYoutubeDLWebUI is a small web interface for youtube-dl. Designed to be used on a QNAP NAS, but should work anywhere [youtube-dl](https://github.com/rg3/youtube-dl), [FFmpeg](https://ffmpeg.org/), and [PHP](https://www.php.net/) can run.
 
 ## Features
 - Options can be set in the web ui:
