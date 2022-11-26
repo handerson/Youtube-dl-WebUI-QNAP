@@ -67,11 +67,11 @@
                         <div class="panel panel-info">
                             <div class="panel-heading"><h3 class="panel-title">Help</h3></div>
                             <div class="panel-body">
-                                <p><b>How does it work ?</b></p>
+                                <p><b>How does it work?</b></p>
                                 <p>Simply paste your video link in the field and click "Download"</p>
-                                <p><b>With which sites does it works ?</b></p>
-                                <p><a href="http://rg3.github.io/youtube-dl/supportedsites.html">Here</a> is the list of the supported sites</p>
-                                <p><b>How can I download the video on my computer ?</b></p>
+                                <p><b>What sites are supported?</b></p>
+                                <p><a href="http://rg3.github.io/youtube-dl/supportedsites.html">Hundreds of sites</a> are supported</p>
+                                <p><b>How can I download the video on my computer?</b></p>
                                 <p>Go to <a href="list.php">List of videos</a> and click on the title of the video you want to save" </p>
                             </div>
                         </div>
