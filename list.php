@@ -51,13 +51,13 @@
                                 $path = $info->getRealPath();
                                 $filename = $info->getFilename();
                                 $relative_path = str_replace($settings['folder'], "", $path);
+                                $deletion_warning = addslashes($filename);
                                 
-                                // $files[]=array('filename'=>$info->getFilename(),'path'=>realpath( $info->getPathname() ), 'size' => human_filesize($info->getSize()) );
-                                echo "<tr>"; //New line
-                                echo "<td height=\"30px\"><a href=\"$relative_path\">$filename</a></td>"; //1st col
-                                echo "<td>".human_filesize($info->getSize())."</td>"; //2nd col
-                                echo "<td><form class=\"form-horizontal\" method=\"post\" role=\"form\" action=\"list.php\" onsubmit=\"return confirm('Are you sure you want to delete $filename?');\"><input type=\"hidden\" name=\"_method\" value=\"delete\"><input type=\"hidden\" name=\"file\" value=\"$relative_path\"><button type=\"submit\" class=\"btn btn-xs btn-danger\">Delete</button></form></td>"; //3rd col
-                                echo "</tr>"; //End line
+                                echo "<tr>\n"; //New line
+                                echo "<td height=\"30px\"><a href=\"download.php?file=".urlencode($relative_path)."\">$filename</a></td>\n"; //1st col
+                                echo "<td>".human_filesize($info->getSize())."</td>\n"; //2nd col
+                                echo "<td><form class=\"form-horizontal\" method=\"post\" role=\"form\" action=\"list.php\" onsubmit=\"return confirm('Are you sure you want to delete $deletion_warning?');\"><input type=\"hidden\" name=\"_method\" value=\"delete\"><input type=\"hidden\" name=\"file\" value=\"$relative_path\"><button type=\"submit\" class=\"btn btn-xs btn-danger\">Delete</button></form></td>\n"; //3rd col
+                                echo "</tr>\n"; //End line
                             }
                         }
                     }      

@@ -24,7 +24,7 @@ function httpMethod($method){
 
     if(in_array($method, ['DELETE', 'PUT', 'POST', 'PATCH'])) {
         return $_SERVER['REQUEST_METHOD'] == $method || (isset($_POST['_method']) && strtoupper($_POST['_method']) == $method);
-    } elseif($method == 'get'){
+    } elseif($method == 'GET'){
         return $_SERVER['REQUEST_METHOD'] == $method;
     } else{
         return false;

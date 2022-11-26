@@ -68,13 +68,13 @@
             };
         }
         if(isset($_POST['file']) && httpMethod('delete') && authorized()) {
-            $fileToDel = $_POST['file'];
-            $data = array();    
-            if(file_exists($GLOBALS['settings']['folder'].$fileToDel))
+            $data = array();
+            $fileToDel = validatePath($GLOBALS['settings']['folder'].$_POST['file']);
+            if(file_exists($fileToDel))
             {
-                $type = mime_content_type($GLOBALS['settings']['folder'].$fileToDel);
+                $type = mime_content_type($fileToDel);
                 if(preg_match("/video/i", $type)){
-                    if(unlink($GLOBALS['settings']['folder'].$fileToDel))
+                    if(unlink($fileToDel))
                     {
                         $data['error'] = false;
                         $data['message'] = "File deleted successfully.";
@@ -95,6 +95,5 @@
             }
         }
     }
-
     commandsHandler();
 ?>
