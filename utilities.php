@@ -42,4 +42,29 @@ function var_error_log( $object=null ){
 function downloadStarted(){
     return isset($GLOBALS['download_attempted']) && $GLOBALS['download_attempted'] === true;
 }
+
+function buildAllowedPathsRegex($carry, $item) {
+    $item = preg_quote($item, '/');
+    return empty($carry) ? $item : "$carry|$item";
+}
+
+function allowedPath($path){
+    if($GLOBALS['allowed_dirs'] && $path){
+        $allowed_dirs = array_filter($GLOBALS['allowed_dirs'], "realpath");
+        $path_pattern = array_reduce($allowed_dirs, "buildAllowedPathsRegex", '');
+
+        $pattern = "/^$path_pattern/i";
+        if(preg_match($pattern, $path)){
+            return $path;
+        } else{
+            return false;
+        }
+    }
+    return $path;
+}
+
+function validatePath($path){
+    $realpath = empty($path) ? false : realpath($path);
+    return allowedPath($realpath) ? $realpath : '';
+}
 ?>

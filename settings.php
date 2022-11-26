@@ -15,11 +15,11 @@
     }
 
     if (httpMethod('post') && authorized()) {
-        if(isset($_POST['folder'])) $settings['folder']=$_POST['folder'];
+        if(isset($_POST['folder'])) $settings['folder']=validatePath($_POST['folder']);
         if(isset($_POST['format'])) $settings['format']=$_POST['format'];
         if(isset($_POST['filename'])) $settings['filename']=$_POST['filename'];
-        if(isset($_POST['ffmpeg'])) $settings['ffmpeg']=$_POST['ffmpeg'];
-        if(isset($_POST['downloadLogFolder'])) $settings['downloadLogFolder']=$_POST['downloadLogFolder'];
+        if(isset($_POST['ffmpeg'])) $settings['ffmpeg']=realpath($_POST['ffmpeg']) ? $_POST['ffmpeg'] : '';
+        if(isset($_POST['downloadLogFolder'])) $settings['downloadLogFolder']=validatePath($_POST['downloadLogFolder']);
         if(isset($_POST['mergeOutputFormat'])) $settings['mergeOutputFormat']=$_POST['mergeOutputFormat'];
         if(isset($_POST['proxy'])) $settings['proxy']=$_POST['proxy'];
         if(isset($_POST['security']) && $_POST['security'] == 'yes'){
