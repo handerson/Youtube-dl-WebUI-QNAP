@@ -7,5 +7,8 @@
     "ffmpeg": "/opt/ffmpeg",
     "security": "",
     "password": "",
-    "proxy": ""
+    "proxy": "",
+    "addMetadata": "yes",
+    "writeInfoJson": "yes",
+    "writeThumbnail": "yes"
 }
