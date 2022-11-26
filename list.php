@@ -73,11 +73,6 @@
             <a href="index.php">Back to download page</a>
         </div>
         </div><!-- End container -->
-        <br>
-        <footer>
-            <div class="well text-center">
-                <p></p>
-            </div>
-        </footer>
+        <?php include("includes/footer.php") ?>
     </body>
 </html>

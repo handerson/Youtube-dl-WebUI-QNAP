@@ -6,3 +6,4 @@ composer.phar
 *.proc
 *.log
 config.json
+.DS_STORE

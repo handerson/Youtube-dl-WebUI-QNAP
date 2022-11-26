@@ -93,11 +93,7 @@
                 </form>
             <?php  } if(secured() && loggedIn()) echo '<p><a href="index.php?logout=1">Logout</a></p>'; ?>
         </div><!-- End container -->
-        <footer>
-            <div class="well text-center">
-                <p></p>
-            </div>
-        </footer>
+        <?php include("includes/footer.php") ?>
     </body>
 <script>
     function showError(message){
