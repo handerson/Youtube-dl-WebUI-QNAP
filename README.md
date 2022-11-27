@@ -1,21 +1,28 @@
 # phpYoutubeDLWebUI
 
-![screen capture of the web app running](https://github.com/handerson/phpYoutubeDLWebUI/blob/main/img/main.png?raw=true)
+![screen capture of the web app running](https://github.com/handerson/phpYoutubeDLWebUI/blob/main/img/darkcompare.png?raw=true)
 
 ## Description
 phpYoutubeDLWebUI is a small web interface for youtube-dl. Designed to be used on a QNAP NAS, but should work anywhere [youtube-dl](https://github.com/rg3/youtube-dl), [FFmpeg](https://ffmpeg.org/), and [PHP](https://www.php.net/) can run.
 
 ## Features
 - Options can be set in the web ui:
-    - download resolution/format (`--format`)
-    - download folder
-    - filename template (`--output`)
-    - proxy (`--proxy`)
-    - merge output format (`--merge-output-format`)
-    - ffmpeg path (`--ffmpeg-location`)
+    - download folder location
+    - progress log folder location
+    - require authenication / set password
+    - youtube-dl options:
+        - `--format`
+        - `--output`
+        - `--proxy`
+        - `--merge-output-format`
+        - `--ffmpeg-location`
+        - `--add-metadata`
+        - `--write-info-json`
+        - `--write-thumbnail`
 - Download runs in background
 - Videos can be deleted
 - Videos can be downloaded from the server
+- Dark mode based on `prefers-color-scheme` media query
 
 ## Requirements
 - HTTP server that supports PHP
