@@ -82,12 +82,8 @@
             ?>
                 <form id="submit_form" class="form-horizontal" action="settings.php" method="post">
                     <fieldset>
-                        <div class="form-group">
-                            <label for="folder" class="col-sm-2 control-label">Download Folder</label>
-                            <div class="col-sm-10">
-                            <input type="text" class="form-control" id="folder" placeholder="/share/Multimedia/Web Videos/" name="folder" value="<?php echo $settings["folder"]; ?>">
-                            </div>
-                        </div>
+                        <h2>youtube-dl Settings</h2>
+
                         <div class="form-group">
                             <label for="format" class="col-sm-2 control-label">Format</label>
                             <div class="col-sm-10">
@@ -104,12 +100,6 @@
                             <label for="ffmpeg" class="col-sm-2 control-label">ffmpeg Path</label>
                             <div class="col-sm-10">
                             <input type="text" class="form-control" id="ffmpeg" placeholder="ffmpeg" name="ffmpeg" value="<?php echo $settings["ffmpeg"]; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="downloadLogFolder" class="col-sm-2 control-label">Download Log Folder</label>
-                            <div class="col-sm-10">
-                            <input type="text" class="form-control" id="downloadLogFolder" placeholder="<?php echo $settings["folder"]; ?>" name="downloadLogFolder" value="<?php echo $settings["downloadLogFolder"]; ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -155,6 +145,21 @@
                         </div>
 
                         <hr class="hr-primary">
+
+                        <h2>phpYoutubeDLWebUI Settings</h2>
+                        <div class="form-group">
+                            <label for="folder" class="col-sm-2 control-label">Download Folder</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="folder" placeholder="/share/Multimedia/Web Videos/" name="folder" value="<?php echo $settings["folder"]; ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="downloadLogFolder" class="col-sm-2 control-label">Download Log Folder</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="downloadLogFolder" placeholder="<?php echo $settings["folder"]; ?>" name="downloadLogFolder" value="<?php echo $settings["downloadLogFolder"]; ?>">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
