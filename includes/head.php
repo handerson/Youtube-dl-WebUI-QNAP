@@ -3,5 +3,6 @@
     <title>phpYoutubeDLWebUI <?php if(isset($current_page)) echo ' - ' . $current_page; ?></title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/darkmode.css">
     <script src="js/jquery-3.6.0.min.js"></script>
 </head>
