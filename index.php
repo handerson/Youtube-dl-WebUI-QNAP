@@ -125,7 +125,7 @@
                 };
             },
             error: function(data){
-                showError(data['message'])
+                showError(data.responseJSON['message'])
             }
         });
     };

@@ -61,7 +61,7 @@
     }
     .panel-info > .panel-heading {
       background-color: #2F3A3F;
-      color: #a6aecf;
+      color: rgb(145,175,194);
       font-weight: normal;
       text-shadow: 0 1px 0 #2F3A3F;
       box-shadow: 1px 1px 15px rgba(30, 32, 34, .7) inset;
