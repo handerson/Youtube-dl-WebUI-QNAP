@@ -32,6 +32,7 @@ function httpMethod($method){
 }
 
 function var_error_log( $object=null ){
+    // from https://www.justinsilver.com/technology/writing-to-the-php-error_log-with-var_dump-and-print_r/
     ob_start();                    // start buffer capture
     var_dump( $object );           // dump the values
     $contents = ob_get_contents(); // put the buffer into a variable
