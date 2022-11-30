@@ -1,0 +1,8 @@
+<Files ~ "^config.json">
+    Order allow,deny
+    Deny from all
+    Satisfy all
+</Files>
+
+RedirectMatch 403 ^/includes/.*$
+RedirectMatch 404 /\.git
