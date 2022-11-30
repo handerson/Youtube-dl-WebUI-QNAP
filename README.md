@@ -45,9 +45,12 @@ phpYoutubeDLWebUI is a small web interface for youtube-dl. Designed to be used o
 2. Create the video folder and check the permissions.
 3. Access your page (ie: http://(my_nas_IP)/youtube-dl/index.php)
 
+
 ### 4. Configuration
-1. Open http://(my_nas_IP)/youtube-dl/index.php in your browser
-2. Edit and Save settings
+1. The included `.htaccess` file should block direct browser access to the `config.json` file.
+2. To update your settings open http://(my_nas_IP)/youtube-dl/index.php in your browser
+3. Navigate to the Settings tab
+4. Edit and Save settings
 
 ### 5. Environment Variables
 
